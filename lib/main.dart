@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -55,17 +55,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -112,11 +102,39 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      bottomNavigationBar: SalomonBottomBar(
+          currentIndex: _currentIndex,
+          onTap: (i) => setState(() => _currentIndex = i),
+          items: [
+            /// Home
+            SalomonBottomBarItem(
+              icon: Icon(Icons.home),
+              title: Text("Home"),
+              selectedColor: Colors.purple,
+            ),
+
+            /// Likes
+            SalomonBottomBarItem(
+              icon: Icon(Icons.favorite_border),
+              title: Text("Likes"),
+              selectedColor: Colors.pink,
+            ),
+
+            /// Search
+            SalomonBottomBarItem(
+              icon: Icon(Icons.search),
+              title: Text("Search"),
+              selectedColor: Colors.orange,
+            ),
+
+            /// Profile
+            SalomonBottomBarItem(
+              icon: Icon(Icons.person),
+              title: Text("Profile"),
+              selectedColor: Colors.teal,
+            ),
+          ],
+        ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

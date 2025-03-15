@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage>  with SingleTickerProviderState
 
 
   late TabController _tabController;
-  
+
   static List<Widget> widgets = [
     MapTab(),
     ReservationTab(),
@@ -88,51 +88,51 @@ class _MyHomePageState extends State<MyHomePage>  with SingleTickerProviderState
 
   @override
   Widget build(BuildContext context) {
-    
+
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: DefaultTabController(
-        length: widgets.length,
-        child: Scaffold(
-        body: TabBarView(
-          controller:_tabController,
-          children: widgets,
-        ),
-        bottomNavigationBar: SalomonBottomBar(
-            currentIndex: _currentIndex,
-            onTap: (i) => setState(() => _tabController.index = _currentIndex = i ),
-            items: [
-              /// Home
-              SalomonBottomBarItem(
-                icon: Icon(Icons.map),
-                title: Text("Home"),
-                selectedColor: Colors.purple,
-              ),
+        debugShowCheckedModeBanner: false,
+        home: DefaultTabController(
+            length: widgets.length,
+            child: Scaffold(
+                body: TabBarView(
+                  controller:_tabController,
+                  children: widgets,
+                ),
+                bottomNavigationBar: SalomonBottomBar(
+                  currentIndex: _currentIndex,
+                  onTap: (i) => setState(() => _tabController.index = _currentIndex = i ),
+                  items: [
+                    /// Home
+                    SalomonBottomBarItem(
+                      icon: Icon(Icons.map),
+                      title: Text("Home"),
+                      selectedColor: Colors.purple,
+                    ),
 
-              /// Likes
-              SalomonBottomBarItem(
-                icon: Icon(Icons.beenhere),
-                title: Text("Reservations"),
-                selectedColor: Colors.pink,
-              ),
+                    /// Likes
+                    SalomonBottomBarItem(
+                      icon: Icon(Icons.beenhere),
+                      title: Text("Reservations"),
+                      selectedColor: Colors.pink,
+                    ),
 
-              /// Search
-              SalomonBottomBarItem(
-                icon: Icon(Icons.search),
-                title: Text("Search"),
-                selectedColor: Colors.orange,
-              ),
+                    /// Search
+                    SalomonBottomBarItem(
+                      icon: Icon(Icons.search),
+                      title: Text("Search"),
+                      selectedColor: Colors.orange,
+                    ),
 
-              /// Profile
-              SalomonBottomBarItem(
-                icon: Icon(Icons.person),
-                title: Text("Profile"),
-                selectedColor: Colors.teal,
-              ),
-            ],
-          )
+                    /// Profile
+                    SalomonBottomBarItem(
+                      icon: Icon(Icons.person),
+                      title: Text("Profile"),
+                      selectedColor: Colors.teal,
+                    ),
+                  ],
+                )
+            )
         )
-      )
     );
   }
 }

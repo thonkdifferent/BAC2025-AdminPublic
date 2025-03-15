@@ -5,7 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
-
+import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Car Space',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'CarSpace'),
     );
   }
 }
@@ -84,15 +84,33 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body:FlutterMap(
+        //mapController: mapController = MapController(),
         options: MapOptions(
-          initialCenter: LatLng(51.509364, -0.128928), // Center the map over London
-          initialZoom: 9.2,
+          initialCenter: LatLng(45.75372, 21.22571), // Center the map over Temeswar
+          initialZoom: 12.2,
+          onTap: (tapPos,latlng) {
+            setState(() {
+
+            });
+          },
+
         ),
         children: [
           TileLayer( // Bring your own tiles
             urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', // For demonstration only
             userAgentPackageName: 'com.example.app', // Add your app identifier
             // And many more recommended properties!
+          ),
+          MarkerLayer(
+            markers: [
+
+              Marker(
+                point: LatLng(30, 40),
+                width: 80,
+                height: 80,
+                child: FlutterLogo(),
+              ),
+            ],
           ),
           RichAttributionWidget( // Include a stylish prebuilt attribution widget that meets all requirments
             attributions: [

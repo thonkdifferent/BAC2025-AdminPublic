@@ -104,15 +104,15 @@ class _MyHomePageState extends State<MyHomePage>  with SingleTickerProviderState
             items: [
               /// Home
               SalomonBottomBarItem(
-                icon: Icon(Icons.home),
+                icon: Icon(Icons.map),
                 title: Text("Home"),
                 selectedColor: Colors.purple,
               ),
 
               /// Likes
               SalomonBottomBarItem(
-                icon: Icon(Icons.favorite_border),
-                title: Text("Likes"),
+                icon: Icon(Icons.beenhere),
+                title: Text("Reservations"),
                 selectedColor: Colors.pink,
               ),
 

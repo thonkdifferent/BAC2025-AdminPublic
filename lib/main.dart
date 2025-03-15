@@ -1,10 +1,10 @@
-import 'package:carspace/tabs/MapTab.dart';
-import 'package:carspace/tabs/ProfileTab.dart';
-import 'package:carspace/tabs/ReservationsTab.dart';
-import 'package:carspace/tabs/SearchTab.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-
+import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,13 +13,12 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'CarSpace',
+      title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -38,7 +37,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Carsa'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -66,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage>  with SingleTickerProviderState
 
 
   late TabController _tabController;
-  
+
   static List<Widget> widgets = [
     MapTab(),
     ReservationTab(),
@@ -88,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage>  with SingleTickerProviderState
 
   @override
   Widget build(BuildContext context) {
-    
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(

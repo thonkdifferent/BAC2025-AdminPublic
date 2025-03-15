@@ -3,6 +3,7 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:latlong2/latlong.dart';
+import 'widgets/PopupMenu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'CarSpace',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Carsa'),
     );
   }
 }
@@ -71,15 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(actions:<Widget>[PopupMenu()]),
       body:FlutterMap(
         options: MapOptions(
           initialCenter: LatLng(51.509364, -0.128928), // Center the map over London
@@ -88,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           TileLayer( // Bring your own tiles
             urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', // For demonstration only
-            userAgentPackageName: 'com.example.app', // Add your app identifier
+            userAgentPackageName: 'com.itfest25.carspace', // Add your app identifier
             // And many more recommended properties!
           ),
           RichAttributionWidget( // Include a stylish prebuilt attribution widget that meets all requirments

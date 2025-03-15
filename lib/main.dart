@@ -1,10 +1,10 @@
+import 'package:carspace/tabs/MapTab.dart';
+import 'package:carspace/tabs/ProfileTab.dart';
+import 'package:carspace/tabs/ReservationsTab.dart';
+import 'package:carspace/tabs/SearchTab.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:latlong2/latlong.dart';
-import 'package:flutter_web_plugins/url_strategy.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -13,12 +13,13 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'CarSpace',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Carsa'),
     );
   }
 }
@@ -89,49 +90,49 @@ class _MyHomePageState extends State<MyHomePage>  with SingleTickerProviderState
   Widget build(BuildContext context) {
 
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: DefaultTabController(
-        length: widgets.length,
-        child: Scaffold(
-        body: TabBarView(
-          controller:_tabController,
-          children: widgets,
-        ),
-        bottomNavigationBar: SalomonBottomBar(
-            currentIndex: _currentIndex,
-            onTap: (i) => setState(() => _tabController.index = _currentIndex = i ),
-            items: [
-              /// Home
-              SalomonBottomBarItem(
-                icon: Icon(Icons.map),
-                title: Text("Home"),
-                selectedColor: Colors.purple,
-              ),
+        debugShowCheckedModeBanner: false,
+        home: DefaultTabController(
+            length: widgets.length,
+            child: Scaffold(
+                body: TabBarView(
+                  controller:_tabController,
+                  children: widgets,
+                ),
+                bottomNavigationBar: SalomonBottomBar(
+                  currentIndex: _currentIndex,
+                  onTap: (i) => setState(() => _tabController.index = _currentIndex = i ),
+                  items: [
+                    /// Home
+                    SalomonBottomBarItem(
+                      icon: Icon(Icons.map),
+                      title: Text("Home"),
+                      selectedColor: Colors.purple,
+                    ),
 
-              /// Likes
-              SalomonBottomBarItem(
-                icon: Icon(Icons.beenhere),
-                title: Text("Reservations"),
-                selectedColor: Colors.pink,
-              ),
+                    /// Likes
+                    SalomonBottomBarItem(
+                      icon: Icon(Icons.beenhere),
+                      title: Text("Reservations"),
+                      selectedColor: Colors.pink,
+                    ),
 
-              /// Search
-              SalomonBottomBarItem(
-                icon: Icon(Icons.search),
-                title: Text("Search"),
-                selectedColor: Colors.orange,
-              ),
+                    /// Search
+                    SalomonBottomBarItem(
+                      icon: Icon(Icons.search),
+                      title: Text("Search"),
+                      selectedColor: Colors.orange,
+                    ),
 
-              /// Profile
-              SalomonBottomBarItem(
-                icon: Icon(Icons.person),
-                title: Text("Profile"),
-                selectedColor: Colors.teal,
-              ),
-            ],
-          )
+                    /// Profile
+                    SalomonBottomBarItem(
+                      icon: Icon(Icons.person),
+                      title: Text("Profile"),
+                      selectedColor: Colors.teal,
+                    ),
+                  ],
+                )
+            )
         )
-      )
     );
   }
 }

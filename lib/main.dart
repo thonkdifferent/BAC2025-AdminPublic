@@ -1,11 +1,11 @@
-import 'package:carspace/tabs/MapTab.dart';
-import 'package:carspace/tabs/ProfileTab.dart';
-import 'package:carspace/tabs/ReservationsTab.dart';
-import 'package:carspace/tabs/SearchTab.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-
-
+import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -13,13 +13,12 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'CarSpace',
+      title: 'Car Space',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -38,7 +37,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Carsa'),
+      home: const MyHomePage(title: 'CarSpace'),
     );
   }
 }
@@ -61,78 +60,104 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>  with SingleTickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
   int _currentIndex = 0;
-
-
-  late TabController _tabController;
-
-  static List<Widget> widgets = [
-    MapTab(),
-    ReservationTab(),
-    SearchTab(),
-    ProfileTab()
-  ];
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(vsync: this, length: widgets.length);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
 
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: DefaultTabController(
-            length: widgets.length,
-            child: Scaffold(
-                body: TabBarView(
-                  controller:_tabController,
-                  children: widgets,
-                ),
-                bottomNavigationBar: SalomonBottomBar(
-                  currentIndex: _currentIndex,
-                  onTap: (i) => setState(() => _tabController.index = _currentIndex = i ),
-                  items: [
-                    /// Home
-                    SalomonBottomBarItem(
-                      icon: Icon(Icons.map),
-                      title: Text("Home"),
-                      selectedColor: Colors.purple,
-                    ),
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    return Scaffold(
+      appBar: AppBar(
+        // TRY THIS: Try changing the color here to a specific color (to
+        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+        // change color while the other colors stay the same.
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(widget.title),
+      ),
+      body:FlutterMap(
+        //mapController: mapController = MapController(),
+        options: MapOptions(
+          initialCenter: LatLng(45.75372, 21.22571), // Center the map over Temeswar
+          initialZoom: 12.2,
+          onTap: (tapPos,latlng) {
+            setState(() {
 
-                    /// Likes
-                    SalomonBottomBarItem(
-                      icon: Icon(Icons.beenhere),
-                      title: Text("Reservations"),
-                      selectedColor: Colors.pink,
-                    ),
+            });
+          },
 
-                    /// Search
-                    SalomonBottomBarItem(
-                      icon: Icon(Icons.search),
-                      title: Text("Search"),
-                      selectedColor: Colors.orange,
-                    ),
+        ),
+        children: [
+          TileLayer( // Bring your own tiles
+            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', // For demonstration only
+            userAgentPackageName: 'com.example.app', // Add your app identifier
+            // And many more recommended properties!
+          ),
+          MarkerLayer(
+            markers: [
 
-                    /// Profile
-                    SalomonBottomBarItem(
-                      icon: Icon(Icons.person),
-                      title: Text("Profile"),
-                      selectedColor: Colors.teal,
-                    ),
-                  ],
-                )
-            )
-        )
+              Marker(
+                point: LatLng(30, 40),
+                width: 80,
+                height: 80,
+                child: FlutterLogo(),
+              ),
+            ],
+          ),
+          RichAttributionWidget( // Include a stylish prebuilt attribution widget that meets all requirments
+            attributions: [
+              TextSourceAttribution(
+                'OpenStreetMap contributors',
+                onTap: () => launchUrl(Uri.parse('https://openstreetmap.org/copyright')), // (external)
+              ),
+              // Also add images...
+            ],
+          ),
+        ],
+      ),
+
+
+      bottomNavigationBar: SalomonBottomBar(
+          currentIndex: _currentIndex,
+          onTap: (i) => setState(() => _currentIndex = i),
+          items: [
+            /// Home
+            SalomonBottomBarItem(
+              icon: Icon(Icons.home),
+              title: Text("Home"),
+              selectedColor: Colors.purple,
+            ),
+
+            /// Likes
+            SalomonBottomBarItem(
+              icon: Icon(Icons.favorite_border),
+              title: Text("Likes"),
+              selectedColor: Colors.pink,
+            ),
+
+            /// Search
+            SalomonBottomBarItem(
+              icon: Icon(Icons.search),
+              title: Text("Search"),
+              selectedColor: Colors.orange,
+            ),
+
+            /// Profile
+            SalomonBottomBarItem(
+              icon: Icon(Icons.person),
+              title: Text("Profile"),
+              selectedColor: Colors.teal,
+            ),
+          ],
+        ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

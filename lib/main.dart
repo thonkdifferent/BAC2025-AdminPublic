@@ -1,9 +1,10 @@
+import 'package:carspace/tabs/MapTab.dart';
+import 'package:carspace/tabs/ProfileTab.dart';
+import 'package:carspace/tabs/ReservationsTab.dart';
+import 'package:carspace/tabs/SearchTab.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:latlong2/latlong.dart';
-import 'widgets/PopupMenu.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -11,6 +12,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
 
   // This widget is the root of your application.
   @override
@@ -59,77 +61,78 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>  with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
+
+
+  late TabController _tabController;
+  
+  static List<Widget> widgets = [
+    MapTab(),
+    ReservationTab(),
+    SearchTab(),
+    ProfileTab()
+  ];
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, length: widgets.length);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
-
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(actions:<Widget>[PopupMenu()]),
-      body:FlutterMap(
-        options: MapOptions(
-          initialCenter: LatLng(51.509364, -0.128928), // Center the map over London
-          initialZoom: 9.2,
+    
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: DefaultTabController(
+        length: widgets.length,
+        child: Scaffold(
+        body: TabBarView(
+          controller:_tabController,
+          children: widgets,
         ),
-        children: [
-          TileLayer( // Bring your own tiles
-            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png', // For demonstration only
-            userAgentPackageName: 'com.itfest25.carspace', // Add your app identifier
-            // And many more recommended properties!
-          ),
-          RichAttributionWidget( // Include a stylish prebuilt attribution widget that meets all requirments
-            attributions: [
-              TextSourceAttribution(
-                'OpenStreetMap contributors',
-                onTap: () => launchUrl(Uri.parse('https://openstreetmap.org/copyright')), // (external)
+        bottomNavigationBar: SalomonBottomBar(
+            currentIndex: _currentIndex,
+            onTap: (i) => setState(() => _tabController.index = _currentIndex = i ),
+            items: [
+              /// Home
+              SalomonBottomBarItem(
+                icon: Icon(Icons.home),
+                title: Text("Home"),
+                selectedColor: Colors.purple,
               ),
-              // Also add images...
+
+              /// Likes
+              SalomonBottomBarItem(
+                icon: Icon(Icons.favorite_border),
+                title: Text("Likes"),
+                selectedColor: Colors.pink,
+              ),
+
+              /// Search
+              SalomonBottomBarItem(
+                icon: Icon(Icons.search),
+                title: Text("Search"),
+                selectedColor: Colors.orange,
+              ),
+
+              /// Profile
+              SalomonBottomBarItem(
+                icon: Icon(Icons.person),
+                title: Text("Profile"),
+                selectedColor: Colors.teal,
+              ),
             ],
-          ),
-        ],
-      ),
-
-
-      bottomNavigationBar: SalomonBottomBar(
-          currentIndex: _currentIndex,
-          onTap: (i) => setState(() => _currentIndex = i),
-          items: [
-            /// Home
-            SalomonBottomBarItem(
-              icon: Icon(Icons.home),
-              title: Text("Home"),
-              selectedColor: Colors.purple,
-            ),
-
-            /// Likes
-            SalomonBottomBarItem(
-              icon: Icon(Icons.favorite_border),
-              title: Text("Likes"),
-              selectedColor: Colors.pink,
-            ),
-
-            /// Search
-            SalomonBottomBarItem(
-              icon: Icon(Icons.search),
-              title: Text("Search"),
-              selectedColor: Colors.orange,
-            ),
-
-            /// Profile
-            SalomonBottomBarItem(
-              icon: Icon(Icons.person),
-              title: Text("Profile"),
-              selectedColor: Colors.teal,
-            ),
-          ],
-        ), // This trailing comma makes auto-formatting nicer for build methods.
+          )
+        )
+      )
     );
   }
 }

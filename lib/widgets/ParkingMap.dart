@@ -16,7 +16,7 @@ class _ParkingMapState extends State<ParkingMap>{
   LatLng? _currentPosition;
   final MapController _mapController = MapController();
   static  List<Marker> _markers = [
-
+    LatLng(45.765225979906944, 21.23058855792415)
   ]
       .map(
           (markerPosition) => Marker(

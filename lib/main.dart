@@ -4,12 +4,20 @@ import 'package:carspace/tabs/ReservationsTab.dart';
 import 'package:carspace/tabs/SearchTab.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 
-void main() {
-  runApp(const MyApp());
+const supabaseUrl = 'https://uhzijekgkovmjahcpvdf.supabase.co';
+const supabaseKey = String.fromEnvironment('SUPABASE_KEY');
+Future<void> main() async {
+  await Supabase.initialize(
+    url: 'https://uhzijekgkovmjahcpvdf.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVoemlqZWtna292bWphaGNwdmRmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDIxMjQzMTIsImV4cCI6MjA1NzcwMDMxMn0.Ohwbhcz9Ew-EiVE6q3EKjMVEv4597aFRTBmRmjxGxtg',
+  );
+
+  runApp(MyApp());
 }
-
+final supabase = Supabase.instance.client;
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

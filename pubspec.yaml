@@ -41,6 +41,9 @@ dependencies:
   flutter_map_marker_popup: ^7.0.0
   latlong2: ^0.9.1
   flutter_map_location_marker: ^9.1.1
+  google_sign_in: ^6.3.0
+  supabase_flutter: ^2.8.4
+  app_links: ^6.4.0
 
 
 

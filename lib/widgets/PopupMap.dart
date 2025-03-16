@@ -50,7 +50,7 @@ class _PopupMapState extends State<PopupMap> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             const Text(
-              'Popup for a marker!',
+              'Un punct de interes',
               overflow: TextOverflow.fade,
               softWrap: false,
               style: TextStyle(
@@ -59,11 +59,11 @@ class _PopupMapState extends State<PopupMap> {
               ),
             ),
             const Padding(padding: EdgeInsets.symmetric(vertical: 4.0)),
-            Text(
+            SelectableText(
               'Position: ${widget.marker.point.latitude}, ${widget.marker.point.longitude}',
               style: const TextStyle(fontSize: 12.0),
             ),
-            Text(
+            SelectableText(
               'Marker size: ${widget.marker.width}, ${widget.marker.height}',
               style: const TextStyle(fontSize: 12.0),
             ),

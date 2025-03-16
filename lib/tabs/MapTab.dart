@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-
-import 'package:latlong2/latlong.dart';
 import '../widgets/ParkingMap.dart';
 import '../widgets/PopupMenu.dart';
 class MapTab extends StatefulWidget{

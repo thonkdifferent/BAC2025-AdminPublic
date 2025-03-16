@@ -22,6 +22,8 @@ class ParkingMap extends StatelessWidget {
             ))
       .toList();
 
+
+
   @override
   Widget build(BuildContext context) {
     return FlutterMap(
@@ -47,6 +49,17 @@ class ParkingMap extends StatelessWidget {
                   PopupMap(marker),
             ),
           ),
+        ),
+        PolygonLayer(
+          polygons: [
+            Polygon(
+              points: [LatLng(45.76494266773059, 21.229629518653113),LatLng(45.764994252131125, 21.231497866892592),LatLng(45.765613261215506, 21.231024617828815),LatLng(45.76543443704802, 21.229649237442477)
+              ],
+              color: Colors.green,
+              isFilled: true,
+            ),
+
+          ],
         ),
         RichAttributionWidget( // Include a stylish prebuilt attribution widget that meets all requirments
           attributions: [

@@ -8,10 +8,10 @@ import 'package:url_launcher/url_launcher.dart';
 class ParkingMap extends StatelessWidget {
   const ParkingMap({super.key});
 
-  static final List<Marker> _markers = [
-    const LatLng(44.421, 10.404),
-    const LatLng(45.683, 10.839),
-    const LatLng(45.246, 5.783),
+  static  List<Marker> _markers = [
+    const LatLng(45.75994,21.22956),
+    const LatLng(45.75553,21.22194),
+    const LatLng(45.75627,21.23615),
   ]
       .map(
         (markerPosition) => Marker(
@@ -25,9 +25,14 @@ class ParkingMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlutterMap(
-      options: const MapOptions(
-        initialZoom: 5.0,
-        initialCenter: LatLng(44.421, 10.404),
+      options:  MapOptions(
+        initialZoom: 14.6,
+        initialCenter: LatLng(45.75372,21.22571),
+        onTap: (tapPos,latlng){
+          _markers.add(
+            Marker(point: latlng, child: Icon(Icons.location_on, size: 40))
+          );
+        },
       ),
       children: [
         TileLayer(

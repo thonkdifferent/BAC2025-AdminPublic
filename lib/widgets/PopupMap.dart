@@ -49,7 +49,7 @@ class _PopupMapState extends State<PopupMap> {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const Text(
+            Text(
               'Un punct de interes',
               overflow: TextOverflow.fade,
               softWrap: false,

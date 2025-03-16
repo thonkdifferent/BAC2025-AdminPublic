@@ -55,6 +55,11 @@ class Win32Window {
   // Return a RECT representing the bounds of the current client area.
   RECT GetClientArea();
 
+  // Dispatches link if any.
+  // This method enables our app to be with a single instance too.
+  // This is optional but mandatory if you want to catch further links in same app.
+  bool SendAppLinkToInstance(const std::wstring& title);
+
  protected:
   // Processes and route salient window messages for mouse handling,
   // size change and DPI. Delegates handling of these to member overloads that

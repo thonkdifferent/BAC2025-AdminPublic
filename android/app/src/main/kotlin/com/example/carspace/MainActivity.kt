@@ -1,4 +1,4 @@
-package com.example.carspace
+package com.itfest25.carspace
 
 import io.flutter.embedding.android.FlutterActivity
 

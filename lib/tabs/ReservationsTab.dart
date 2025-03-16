@@ -36,9 +36,17 @@ class _CustomScrollViewExampleState extends State<CustomScrollViewExample> {
           },
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(8),
-        children: reservations
+      
+    body: ListView.separated(
+      padding: const EdgeInsets.all(8),
+      itemCount: reservations.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          color: Colors.amber,
+          child: reservations[index],
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) => const Divider(),
       )
     );
   }
